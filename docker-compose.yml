@@ -1,0 +1,18 @@
+version: "3.3"
+
+services:
+  geoip-php:
+    build: .
+    volumes:
+      - ./webpage/:/var/www/html
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.hello-world-php.rule=Host(`geoip-php.localtest.me`)"
+      - "traefik.http.services.hello-world-php.loadbalancer.server.port=80"
+      - "traefik.http.routers.hello-world-php.entrypoints=websecure"
+      - "traefik.http.routers.hello-world-php.tls=true"
+    networks:
+      - traefik-public
+networks:
+  traefik-public:
+    external: true
