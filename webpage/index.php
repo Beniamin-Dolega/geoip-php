@@ -1,23 +1,26 @@
 <?php
-$ip = $_SERVER['REMOTE_ADDR'];
-$country = geoip_country_name_by_name($ip);
-
-if($_POST["ipadress"]==null){
-    
-    if($country==null){
-        echo '<meta http-equiv="refresh" content="0;url=form.html">';
-        exit;
-    }
-    else{
-        echo 'Twoje IP: '.$ip.'<br>';
-        echo 'Twój kraj: '.$country;
-    }
+if($_POST["ipadress"]!=null){
+    $ip = $_POST["ipadress"];
 }
 else{
-    $ip = $_POST["ipadress"];
+    $ip = $_SERVER['REMOTE_ADDR'];
+    $country = geoip_country_name_by_name($ip);
+}
+
+if($_POST["ipadress"]==null && $country==null){    
+    echo '<meta http-equiv="refresh" content="0;url=form.html">';
+    exit;
+}
+else{
     $country = geoip_country_name_by_name($ip);
         
     echo 'Twoje IP: '.$ip.'<br>';
-    echo 'Twój kraj: '.$country;    
+
+    if($country!=null){
+        echo 'Twój kraj: '.$country;
+    }
+    else{
+        echo 'Twój kraj: Skrypt nie jest w stanie określić twojego kraju.';
+    }
 }
 ?>
