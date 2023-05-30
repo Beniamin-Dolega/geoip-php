@@ -1,4 +1,20 @@
 <?php
+//checking db connection
+$hostname = getenv('HOSTNAME');
+$dbname = getenv('DBNAME');
+$usrnm = getenv('USER');
+$pwd = getenv('PASSWORD');
+$db = 'mysql:host='.$hostname.';dbname='.$dbname;
+
+try {
+    $db = new PDO($db, $usrnm, $pwd);
+    echo 'Połączono z bazą danych<br>';
+} catch (PDOException $e) {
+    die('Błąd połączenia z bazą danych: ' . $e->getMessage());
+}
+
+/*
+//query
 if($_POST["ipadress"]!=null){
     $ip = $_POST["ipadress"];
 }
@@ -23,4 +39,4 @@ else{
         echo 'Twój kraj: Skrypt nie jest w stanie określić twojego kraju.';
     }
 }
-?>
+*/
