@@ -1,3 +1,4 @@
 #Original enviromental variables file
 .env
 data/*
+!data/ini.txt
