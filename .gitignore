@@ -1,2 +1,3 @@
 #Original enviromental variables file
-*.env
+.env
+/data/*
