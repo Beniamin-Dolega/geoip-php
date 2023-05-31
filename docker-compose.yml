@@ -2,7 +2,7 @@ version: "3.3"
 
 services:
   geoip-php:
-    image: geoip:$APP_V
+    image: geoip:$GEOIP_APP_V
     build: .
     volumes:
       - ./webpage/:/var/www/html
@@ -25,7 +25,8 @@ services:
     image: mariadb:latest
     restart: always
     volumes:
-      - ./data:/var/lib/mysql
+      - /var/lib/mysql
+      - ./dbinit/:/docker-entrypoint-initdb.d
     environment:
       MARIADB_ROOT_PASSWORD: $DB_PASSWORD
     networks:
