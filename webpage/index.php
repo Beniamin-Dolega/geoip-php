@@ -8,10 +8,22 @@ $db = 'mysql:host='.$hostname.';dbname='.$dbname;
 
 try {
     $db = new PDO($db, $usrnm, $pwd);
-    echo 'Połączono z bazą danych<br>';
-} catch (PDOException $e) {
+} 
+catch (PDOException $e){
     die('Błąd połączenia z bazą danych: ' . $e->getMessage());
 }
+
+//headline
+$query = "SELECT COUNT(*) AS total FROM ip_query_data";
+$result = $db->query($query);
+
+if ($result) {
+    $row = $result->fetch(PDO::FETCH_ASSOC);
+    $count = $row['total'];
+} else {
+    $count = 0;
+}
+echo '<a href="info.php">Tą stronę odwiedziło dotychczas ' . $count . ' osób</a></br>';
 
 //query
 $ip = $_SERVER['REMOTE_ADDR'];
@@ -36,6 +48,7 @@ else{
         }
         else{
             echo 'Twój kraj: Skrypt nie jest w stanie określić twojego kraju.';
+            $country = "Nie dopasowano";
         }
 
         //database insertion
